@@ -10,6 +10,10 @@ with sync_playwright() as p:
     url = "https://www.pracuj.pl/praca/poznan;wp?rd=0"
     page.goto(url)
 
+    # Click on cookies and terms changes
+    page.locator("[data-test=\"button-submitCookie\"]").click()
+    page.get_by_role("button", name="OK, rozumiem").click()
+
     # Data extraction logic
     # Data export logic
 
