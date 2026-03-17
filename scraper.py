@@ -1,6 +1,5 @@
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
-import requests
 import keyboard
 import httpx
 
@@ -31,8 +30,9 @@ with sync_playwright() as p:
     except Exception as e:
         print(f"Błąd: nie znaleziono ofert: {e}")
 
-    
-    soup = BeautifulSoup(html, "html.parser")
+    # It's 
+    soup = BeautifulSoup(html, "lmxl")
+
     # Place to store scraped data
     intership_offers = []
 
