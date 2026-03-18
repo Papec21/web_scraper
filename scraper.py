@@ -1,7 +1,5 @@
 from playwright.sync_api import sync_playwright
-from bs4 import BeautifulSoup
 import keyboard
-import httpx
 
 with sync_playwright() as p:
     # Open a new page
@@ -20,26 +18,17 @@ with sync_playwright() as p:
         pass
 
     # Wait for data to load
-    try:
-        page.wait_for_selector(".tiles_o1859gd9 core_n194fgoq", timeout=10000)
-    except Exception as e:
-        print(f"Błąd: nie znaleziono ofert: {e}")
+    container_selector = "[data-test='default-offer']"
+    page.wait_for_selector(container_selector, timeout=10000)
 
     # Getting the HTML of the target page
-    html = page.content()
-    soup = BeautifulSoup(html, "lxml")
+    offers = page.locator(container_selector).all()
+    print(f"Znaleziono {len(offers)} ofert na stronie")
 
     # Place to store scraped data
     intership_offers = []
 
     # Data extraction logic
-    offer_elements = soup.select(".tiles_o1859gd9.core_n194fgoq")
-    for offer_element in offer_elements:
-        # Extraction of job title
-        title_element = offer_element.select_one(".text")
-        if title_element:
-            title = title_element.get_text(strip=True)
-            print(title_element)
 
     # Data export logic
 
