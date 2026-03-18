@@ -26,7 +26,7 @@ with sync_playwright() as p:
         print(f"Błąd: nie znaleziono ofert: {e}")
 
     # Getting the HTML of the target page
-    html = page.text
+    html = page.content()
     soup = BeautifulSoup(html, "lxml")
 
     # Place to store scraped data
