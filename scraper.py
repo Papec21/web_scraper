@@ -16,22 +16,18 @@ with sync_playwright() as p:
     try:
         page.locator("[data-test=\"button-submitCookie\"]").click()
         page.get_by_role("button", name="OK, rozumiem").click()
-    except Exception as e:
-        print(f"Błąd przy akceptacji cookies: {e}")
+    except:
+        pass
 
-    # Getting the HTML of the target page
-    url = "https://www.pracuj.pl/praca/poznan;wp?rd=0&et=1&sc=0"
-    response = httpx.get(url)
-    html = response.text
-
-    # Wait for website to load
+    # Wait for data to load
     try:
         page.wait_for_selector(".tiles_o1859gd9 core_n194fgoq", timeout=10000)
     except Exception as e:
         print(f"Błąd: nie znaleziono ofert: {e}")
 
-    # It's 
-    soup = BeautifulSoup(html, "lmxl")
+    # Getting the HTML of the target page
+    html = page.text
+    soup = BeautifulSoup(html, "lxml")
 
     # Place to store scraped data
     intership_offers = []
@@ -51,4 +47,4 @@ with sync_playwright() as p:
     # browser.close()
 
     # Mockup wait to see if it works
-    keyboard.wait('space')
+    # keyboard.wait('space')
