@@ -18,14 +18,12 @@ with sync_playwright() as p:
         pass
 
     # Wait for data to load
-    default_offers_selector = "[data-test='default-offer', data-test='positioned-offer']"
-    positioned_offers_selector = "[data-test='positioned-offer']"
-    page.wait_for_selector(default_offers_selector, timeout=10000)
+    combined_offers_selector = "[data-test='default-offer'], [data-test='positioned-offer']"
+    page.wait_for_selector(combined_offers_selector, timeout=10000)
 
     # Getting the HTML of the target page
-    default_offers = page.locator(default_offers_selector).all()
-    positioned_offers = page.locator(positioned_offers_selector).all()
-    print(f"Znaleziono {len(default_offers+positioned_offers)} ofert na stronie")
+    combined_offers = page.locator(combined_offers_selector).all()
+    print(f"Znaleziono {len(combined_offers)} ofert na stronie")
 
     # Place to store scraped data
     intership_offers = []
