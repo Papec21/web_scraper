@@ -5,6 +5,21 @@ with sync_playwright() as p:
     page = browser.new_page()
 
     url = "https://books.toscrape.com/"
-    page.goto("url")
+    page.goto(url)
 
-    
+    books = []
+
+    book_elements = page.locator(".product_pod")
+    book_elements.first.wait_for()
+
+    for book_element in book_elements.all():
+        title_element = book_element.locator("h3 a")
+        title = title_element.text_content().strip()
+
+        book = {
+            "title": title
+        }
+
+        books.append(book)
+
+    print(books)
