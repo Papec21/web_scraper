@@ -14,7 +14,7 @@ with sync_playwright() as p:
 
     for book_element in book_elements.all():
         title_element = book_element.locator("h3 a")
-        title = title_element.text_content().strip()
+        title = title_element.get_attribute("title")
 
         book = {
             "title": title
