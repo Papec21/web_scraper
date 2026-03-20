@@ -16,8 +16,12 @@ with sync_playwright() as p:
         title_element = book_element.locator("h3 a")
         title = title_element.get_attribute("title")
 
+        price_element = book_element.locator(".product_price .price_color")
+        price = price_element.text_content().strip()
+
         book = {
-            "title": title
+            "title": title,
+            "price": price
         }
 
         books.append(book)
