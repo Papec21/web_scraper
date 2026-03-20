@@ -17,18 +17,37 @@ with sync_playwright() as p:
     except:
         pass
 
+    # Selectors 
+    offer_container_selector = "[data-test='section-offer']"
+    title_selector = "[data-test='offer-title']"
+    company_selector = "[data-test='text-company-name']"
+
     # Wait for data to load
-    combined_offers_selector = "[data-test='default-offer'], [data-test='positioned-offer']"
-    page.wait_for_selector(combined_offers_selector, timeout=10000)
+    page.wait_for_selector(offer_container_selector, timeout=10000)
 
     # Getting the HTML of the target page
-    combined_offers = page.locator(combined_offers_selector).all()
-    print(f"Znaleziono {len(combined_offers)} ofert na stronie")
+    offer_elements = page.locator(offer_container_selector).all()
+    print(f"Znaleziono {offer_elements} ofert na stronie")
 
     # Place to store scraped data
-    intership_offers = []
+    offers = []
 
     # Data extraction logic
+    for element in offer_elements:
+        try:
+            title = element.locator(title_selector).inner_text().strip()
+            
+            company = ""
+            if element.locator(company_selector).count() > 0:
+                company = element.locator(company_selector).inner_text().strip()
+
+            offers.append({"title": title, "company": company})
+            print(f"Pobrano: {title} | {company}")
+
+        except Exception as e:
+            continue
+
+    print(offers)
 
     # Data export logic
 
@@ -37,3 +56,4 @@ with sync_playwright() as p:
 
     # Mockup wait to see if it works
     # keyboard.wait('space')
+    print(offers)
