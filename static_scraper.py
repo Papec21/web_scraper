@@ -16,11 +16,16 @@ with sync_playwright() as p:
         title_element = book_element.locator("h3 a")
         title = title_element.get_attribute("title")
 
+        rating_element = book_element.locator(".star-rating")
+        star_rating = rating_element.get_attribute("class")
+        rating = star_rating.replace("star-rating ", "")
+
         price_element = book_element.locator(".product_price .price_color")
         price = price_element.text_content().strip()
 
         book = {
             "title": title,
+            "rating": rating,
             "price": price
         }
 
