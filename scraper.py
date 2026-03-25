@@ -1,4 +1,5 @@
 from playwright.sync_api import sync_playwright
+import csv
 # import keyboard
 
 with sync_playwright() as p:
@@ -50,10 +51,14 @@ with sync_playwright() as p:
     print(offers)
 
     # Data export logic
+with open("job_offers.csv", mode="w", newline="", encoding="utf-8") as file:
+    writer = csv.DictWriter(file, fieldnames=["title", "company"])
+    writer.writeheader()
+    writer.writerows(offers)
+    print("Zapisano")
 
     # Close the browser 
     # browser.close()
 
     # Mockup wait to see if it works
     # keyboard.wait('space')
-    print(offers)
