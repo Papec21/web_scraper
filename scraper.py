@@ -1,5 +1,5 @@
 from playwright.sync_api import sync_playwright
-import keyboard
+# import keyboard
 
 with sync_playwright() as p:
     # Open a new page
@@ -18,7 +18,7 @@ with sync_playwright() as p:
         pass
 
     # Selectors 
-    offer_container_selector = "[data-test='section-offer']"
+    offer_container_selector = "[data-test='default-offer']"
     title_selector = "[data-test='offer-title']"
     company_selector = "[data-test='text-company-name']"
 
@@ -27,7 +27,7 @@ with sync_playwright() as p:
 
     # Getting the HTML of the target page
     offer_elements = page.locator(offer_container_selector).all()
-    print(f"Znaleziono {offer_elements} ofert na stronie")
+    print(f"Znaleziono {len(offer_elements)} ofert na stronie")
 
     # Place to store scraped data
     offers = []
