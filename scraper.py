@@ -42,8 +42,8 @@ with sync_playwright() as p:
             if element.locator(company_selector).count() > 0:
                 company = element.locator(company_selector).inner_text().strip()
 
-            offers.append({"title": title, "company": company})
-            print(f"Pobrano: {title} | {company}")
+            offers.append({"id": id, "title": title, "company": company})
+            print(f"Pobrano:{id} | {title} | {company}")
 
         except Exception as e:
             continue
